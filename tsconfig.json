@@ -5,10 +5,12 @@
         "noImplicitAny": false,
         "target": "es5",
         "types": [
-            "angular",            
+            "angular",
             "node",
-            "jasmine"
-        ]
+            "jasmine",
+            "angular-mocks"
+        ],
+        "forceConsistentCasingInFileNames": true
     },
     "exclude": [
         "node_modules"

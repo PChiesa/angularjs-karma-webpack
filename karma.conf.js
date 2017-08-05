@@ -3,6 +3,8 @@ module.exports = function (config) {
     // ... normal karma configuration
     files: [
       // all files ending in "_test"      
+      { pattern: 'app/*.ts', watched: false },
+      { pattern: 'app/**/*.ts', watched: false },
       { pattern: 'test/*_test.js', watched: false },
       { pattern: 'test/**/*_test.js', watched: false },
       { pattern: 'test/**/*_test.ts', watched: false },
@@ -14,6 +16,8 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     preprocessors: {
+      'app/*.ts': ['webpack'],
+      'app/**/*.ts': ['webpack'],
       // add webpack as preprocessor
       'test/*_test.js': ['webpack'],
       'test/**/*_test.js': ['webpack'],
@@ -53,6 +57,15 @@ module.exports = function (config) {
             test: /\.ts$/, use: [{
               loader: 'ts-loader'
             }]
+          },
+          {
+            test: /\.(html)$/,
+            use: {
+              loader: 'html-loader',
+              options: {
+                attrs: [':data-src']
+              }
+            }
           }]
       }
     },
