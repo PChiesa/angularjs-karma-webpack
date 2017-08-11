@@ -1,16 +1,14 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
+        "target": "ES5",
         "module": "commonjs",
-        "allowJs": true,
-        "noImplicitAny": false,
-        "target": "es5",
-        "types": [
+        "sourceMap": true,
+        "types" : [
             "angular",
-            "node",
-            "jasmine",
-            "angular-mocks"
-        ],
-        "forceConsistentCasingInFileNames": true
+            "angular-mocks",
+            "jasmine"
+        ]
     },
     "exclude": [
         "node_modules"

@@ -1,80 +1,30 @@
+"use strict";
 module.exports = function (config) {
-  config.set({
-    // ... normal karma configuration
-    files: [
-      // all files ending in "_test"      
-      { pattern: 'app/*.ts', watched: false },
-      { pattern: 'app/**/*.ts', watched: false },
-      { pattern: 'test/*_test.js', watched: false },
-      { pattern: 'test/**/*_test.js', watched: false },
-      { pattern: 'test/**/*_test.ts', watched: false },
-      { pattern: 'test/**/*_test.ts', watched: false }
-      // each file acts as entry point for the webpack configuration
-    ],
-    singleRun: true,
-    basePath: '',
-    frameworks: ['jasmine'],
+    config.set({
 
-    preprocessors: {
-      'app/*.ts': ['webpack'],
-      'app/**/*.ts': ['webpack'],
-      // add webpack as preprocessor
-      'test/*_test.js': ['webpack'],
-      'test/**/*_test.js': ['webpack'],
-      'test/*_test.ts': ['webpack'],
-      'test/**/*_test.ts': ['webpack']
-    },
+        frameworks: ["jasmine", "karma-typescript"],
 
-    browsers: ['PhantomJS'],
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-      exitOnResourceError: true
-    },
+        files: [
+            { pattern: "app/**/*.ts" }
+        ],
 
-    mime: {
-      'text/x-typescript': ['ts', 'tsx']
-    },
-    plugins: [
-      require('karma-phantomjs-launcher'),
-      require('karma-webpack'),
-      require('karma-jasmine')
-    ],
+        preprocessors: {
+            "app/**/*.ts": ["karma-typescript"]
+        },
 
-    webpack: {
-      // karma watches the test entry points
-      // (you don't need to specify the entry option)
-      // webpack watches dependencies
+        reporters: ["dots", "karma-typescript"],
 
-      // webpack configuration      
+        karmaTypescriptConfig: {
+            tsconfig: "./tsconfig.json"
+        },
 
-      resolve: {
-        extensions: ['.ts', '.js', '.tsx']
-      },
+        logLevel: config.LOG_INFO,
 
-      module: {
-        rules: [
-          {
-            test: /\.ts$/, use: [{
-              loader: 'ts-loader'
-            }]
-          },
-          {
-            test: /\.(html)$/,
-            use: {
-              loader: 'html-loader',
-              options: {
-                attrs: [':data-src']
-              }
-            }
-          }]
-      }
-    },
-
-    webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
-      stats: 'errors-only'
-    }
-
-  });
-}
+        browsers: ["PhantomJS"],
+        plugins: [
+            require('karma-phantomjs-launcher'),            
+            require('karma-jasmine'),
+            require('karma-typescript')
+        ]
+    });
+};
